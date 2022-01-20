@@ -51,6 +51,7 @@ export let store = {
     } 
   },
   getState() {
+    console.log("Логируем действия в state !!!")
     return this._state
   },
   addPost() {
@@ -58,21 +59,21 @@ export let store = {
       name: 'Artur' , like: '25', message: this._state.profile.newPostText } 
       this._state.profile.posts.unshift(stateItem)
       this._state.profile.newPostText = '';
-      this.observer._callSuscriber(this._state); 
+      this._callSuscriber(this._state); 
   },
   updateNewPostText(newText) {
     this._state.profile.newPostText = newText;  
-    this.observer._callSuscriber(this._state);
+    this._callSuscriber(this._state);
   },
   removePost(post) {
     this._state.profile.posts.splice(post, 1)
-    this.observer._callSuscriber(this._state);
+    this._callSuscriber(this._state);
   },
   _callSuscriber() {
     console.log("The function not redefined")
   },
   subscribe(observer) {
-    this.observer._callSuscriber = observer
+    this._callSuscriber = observer
   },
 };
 

@@ -2,7 +2,6 @@ import React from "react";
 import classes from "./MyPosts.module.css";
 
 const MyPosts = (props) => {
-    debugger;
     let remove = (post) => {
         props.removePost(post)
     }

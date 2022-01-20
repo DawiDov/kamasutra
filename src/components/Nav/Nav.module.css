@@ -1,0 +1,44 @@
+.nav {
+    grid-area: n;
+    color: red;
+  }
+
+.active {
+  font-size: 18px;
+  color: wheat;
+  
+}
+
+.passive {
+  font-size: 15px;
+  color: white;
+  
+}
+.item a {
+  text-decoration: none;
+}
+
+.item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 30px;
+  margin: 25px 0px;
+  background-color: #700E2D;
+  border: white 2px solid;
+  width: 150px;
+  height: 60px;
+}
+
+.item:hover {
+  box-shadow: 20px 20px 40px rgba(0, 0, 0, 0.5);
+  opacity: 50%;
+  transition: opacity 0.3s linear;
+  width: 160px;
+  transition: width 0.2s linear;
+
+}
+.item a:hover {
+  color: white;
+  font-size: 18px;
+}

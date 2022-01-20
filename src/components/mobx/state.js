@@ -59,22 +59,39 @@ export let store = {
       name: 'Artur' , like: '25', message: this._state.profile.newPostText } 
       this._state.profile.posts.unshift(stateItem)
       this._state.profile.newPostText = '';
-      this._callSuscriber(this._state); 
+      this.callSuscriber(this._state); 
   },
-  updateNewPostText(newText) {
-    this._state.profile.newPostText = newText;  
-    this._callSuscriber(this._state);
+  updateNewPostText(text) {
+    this._state.profile.newPostText = text;  
+    this.callSuscriber(this._state);
   },
   removePost(post) {
     this._state.profile.posts.splice(post, 1)
-    this._callSuscriber(this._state);
+    this.callSuscriber(this._state);
   },
-  _callSuscriber() {
+  callSuscriber() {
+
     console.log("The function not redefined")
   },
   subscribe(observer) {
-    this._callSuscriber = observer
+
+    this.callSuscriber = observer
   },
+  dispatch(action) {
+    if (action.type === 'GET-STATE') {
+      this.getState();
+    } else if (action.type === 'ADD-POST') {
+        this.addPost();
+    } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
+        this.updateNewPostText(action.text);
+    } else if (action.type === 'REMOVE-POST') {
+        this.removePost(action.post);
+    } else if (action.type === 'SUBSCRIBE') {
+      this.subscribe(action.observer)
+    } else {
+      alert("The object doesn't have this method !!!")
+    }
+  }
 };
 
 window.store = store;

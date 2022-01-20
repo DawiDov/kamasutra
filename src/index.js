@@ -7,20 +7,17 @@ import { BrowserRouter } from 'react-router-dom';
 import { store } from './components/mobx/state';
 
 
-export let renderEntireTree = (state) => { 
+export let renderEntireTree = (state) => {
     ReactDOM.render(
     <BrowserRouter>
         <App state={state} 
-        addPost={store.addPost.bind(store)}
-        updateNewPostText={store.updateNewPostText.bind(store)}
-        removePost={store.removePost.bind(store)}
-        />
+        dispatch={store.dispatch.bind(store)}/>
         </BrowserRouter>,
     document.getElementById('root'))
 };
 
-renderEntireTree(store.getState());
-store.subscribe(renderEntireTree);
+renderEntireTree(store._state);
+store.dispatch({type:'SUBSCRIBE' ,observer: renderEntireTree});
 
 reportWebVitals();
  

@@ -3,6 +3,7 @@ import classes from "./MyPosts.module.css";
 
 const MyPosts = (props) => {
     let remove = (post) => {
+        props.dispatch({ type: 'REMOVE-POST', post: post })
         props.removePost(post)
     }
 
@@ -28,12 +29,12 @@ const MyPosts = (props) => {
     let newPostElement = React.createRef();
 
     let addButtonPost = () => {
-        props.addPost()
+        props.dispatch({type: 'ADD-POST'})
     }
 
     let onPostChange = () => {
         let text = newPostElement.current.value;
-        props.updateNewPostText(text);
+        props.dispatch({type: 'UPDATE-NEW-POST-TEXT', text: text})
     }
    
 

@@ -13,3 +13,22 @@
     color: gold;
 
 }
+
+.message {
+    display: flex;
+}
+.removeMessage {
+    align-self: center;
+}
+.removeMessage img {
+    border-radius: 5px;
+    align-self: center;
+    margin: 2px 5px 2px 10px;
+    width: 15px;
+    height: 15px;
+}
+
+.removeMessage img:active {
+    border: 1px black solid;
+    box-shadow: 0 0 20px black;
+}

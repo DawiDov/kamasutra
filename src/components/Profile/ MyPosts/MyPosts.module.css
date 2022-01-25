@@ -37,13 +37,6 @@
     box-shadow: 0 0 20px black;
     
 }
-
-.delButton {
-    border: black 1px solid;
-    width: 10px;
-    height: 10px;
-}
-
 .item {
     max-width: 500px;
     display: flex;

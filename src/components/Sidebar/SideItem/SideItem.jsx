@@ -1,8 +1,8 @@
 import React from "react";  
 import classes from "./SideItem.module.css";
 
-const SideItem = (props) => {
 
+const SideItem = (props) => {
     let Friend = props.state.map(f => {
         return <>
                 <div className={classes.friendAva}>
@@ -16,7 +16,6 @@ const SideItem = (props) => {
 
     }
         )
-
     return <div className={classes.friendWrapper}>
             { Friend }
           </div>

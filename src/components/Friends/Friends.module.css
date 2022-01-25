@@ -1,0 +1,19 @@
+.friendsWrapper {
+    margin: 100px;
+}
+.enterField {
+    margin: 0 0 20px 0;
+}
+.enterFieldItem textarea{
+    padding: 10px;
+    border-radius: 30px;
+    margin: 5px;
+    width: 300px;
+    height: 50px;
+}
+.buttonField button {
+    border-radius: 30px;
+    margin: 0 5px 5px 5px;
+    width: 100px;
+    height: 40px;
+}

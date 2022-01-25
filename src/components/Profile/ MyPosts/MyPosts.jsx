@@ -1,10 +1,11 @@
 import React from "react";  
 import classes from "./MyPosts.module.css";
+import { createActionRemovePost, createActionAddPost, createActionUpdateNewPostText } from '../../mobx/profile-reducer';
 
 const MyPosts = (props) => {
+
     let remove = (post) => {
-        props.dispatch({ type: 'REMOVE-POST', post: post })
-        props.removePost(post)
+        props.dispatch(createActionRemovePost(post))
     }
 
     let Post = props.state.posts.map(p => {
@@ -29,12 +30,12 @@ const MyPosts = (props) => {
     let newPostElement = React.createRef();
 
     let addButtonPost = () => {
-        props.dispatch({type: 'ADD-POST'})
+        props.dispatch(createActionAddPost())
     }
 
     let onPostChange = () => {
         let text = newPostElement.current.value;
-        props.dispatch({type: 'UPDATE-NEW-POST-TEXT', text: text})
+        props.dispatch(createActionUpdateNewPostText(text))
     }
    
 

@@ -1,3 +1,6 @@
+import profileReducer from './profile-reducer'
+import dialogsReducer from './dialogs-reducer'
+
 
 export let store = {
   _state: {
@@ -11,6 +14,7 @@ export let store = {
           ],
     },
     dialogs: {
+        newMessageText: " ",
         userData:[
             {id:1, name: "Увася"},
             {id:2, name: "Петя"},
@@ -20,12 +24,12 @@ export let store = {
             {id:6, name: "Таня"},
           ],
         messageData: [
-            {id:1, message: "Yo"},
-            {id:2, message: "Hi"},
-            {id:3, message: "How are you?"},
-            {id:4, message: "norm =)"},
-            {id:5, message: "zaebys"},
-            {id:6, message: "horosho"},
+            {id: 1, message: "Yo"},
+            {id: 2, message: "Hi"},
+            {id: 3, message: "How are you?"},
+            {id: 4, message: "norm =)"},
+            {id: 5, message: "zaebys"},
+            {id: 6, message: "horosho"},
           ],
     },
     profile: {
@@ -54,43 +58,17 @@ export let store = {
     console.log("Логируем действия в state !!!")
     return this._state
   },
-  addPost() {
-    let stateItem = {
-      name: 'Artur' , like: '25', message: this._state.profile.newPostText } 
-      this._state.profile.posts.unshift(stateItem)
-      this._state.profile.newPostText = '';
-      this.callSuscriber(this._state); 
-  },
-  updateNewPostText(text) {
-    this._state.profile.newPostText = text;  
-    this.callSuscriber(this._state);
-  },
-  removePost(post) {
-    this._state.profile.posts.splice(post, 1)
-    this.callSuscriber(this._state);
-  },
-  callSuscriber() {
-
+  _callSuscriber() {
     console.log("The function not redefined")
   },
   subscribe(observer) {
-
-    this.callSuscriber = observer
+    this._callSuscriber = observer
   },
   dispatch(action) {
-    if (action.type === 'GET-STATE') {
-      this.getState();
-    } else if (action.type === 'ADD-POST') {
-        this.addPost();
-    } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
-        this.updateNewPostText(action.text);
-    } else if (action.type === 'REMOVE-POST') {
-        this.removePost(action.post);
-    } else if (action.type === 'SUBSCRIBE') {
-      this.subscribe(action.observer)
-    } else {
-      alert("The object doesn't have this method !!!")
-    }
+    this._state.profile = profileReducer(this._state.profile, action);
+    this._state.dialogs = dialogsReducer(this._state.dialogs, action);
+    
+    this._callSuscriber(this._state); 
   }
 };
 

@@ -1,6 +1,6 @@
 import React from "react";
 import classes from "./Profile.module.css";
-import MyPosts from "./ MyPosts/MyPosts";
+import MyPostsContainer from "./ MyPosts/MyPostsContainer";
 
 
 const Profile = (props) => {
@@ -14,7 +14,7 @@ const Profile = (props) => {
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus atque obcaecati voluptatum optio temporibus 
             officia odit sit! Sint, excepturi? Aliquam harum sit amet officiis culpa praesentium totam fugiat sapiente expedita?</p>
     </div>
-        <MyPosts state={props.state} dispatch={ props.dispatch }/>
+        <MyPostsContainer state={props.state} dispatch={ props.dispatch }/>
     </div>
-}       
+    }
 export default Profile;

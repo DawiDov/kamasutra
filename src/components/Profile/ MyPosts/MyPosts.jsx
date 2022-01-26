@@ -1,15 +1,12 @@
 import React from "react";  
 import classes from "./MyPosts.module.css";
-import { createActionRemovePost, createActionAddPost, createActionUpdateNewPostText } from '../../mobx/profile-reducer';
 
 const MyPosts = (props) => {
 
     let remove = (post) => {
-        props.dispatch(createActionRemovePost(post))
+        props.onRemovePost(post)
     }
-
-    let Post = props.state.posts.map(p => {
-        
+    let Post = props.profilePosts.posts.map(p => {
         return <div className={classes.item}>
                 <div className={classes.avatar}>
                     <img src="https://www.hollywoodreporter.com/wp-content/uploads/2019/03/avatar-publicity_still-h_2019.jpg?w=1024" alt="ava" />
@@ -26,36 +23,29 @@ const MyPosts = (props) => {
         </div>
         }
     )
-    
-    let newPostElement = React.createRef();
-
-    let addButtonPost = () => {
-        props.dispatch(createActionAddPost())
+    let onAddBPost = () => {
+        props.addPost()
     }
-
-    let onPostChange = () => {
-        let text = newPostElement.current.value;
-        props.dispatch(createActionUpdateNewPostText(text))
+    let onPostChange = (event) => {
+        let text = event.target.value;
+        props.updateNewPostText(text)
     }
-   
-
     return <div className={classes.myPosts}>
                 <div>
                     <span>My posts</span>
                     <div className={classes.styletextarrea}>
                         <textarea 
-                            onChange={ onPostChange } ref={ newPostElement } 
-                            value={props.state.newPostText} 
+                            onChange={ onPostChange }
+                            value={props.profilePosts.newPostText}
                             placeholder="Сюда писать текст поста..." />
                     </div>
                     <div className={classes.addPostButton}>
-                        <button onClick={ addButtonPost }>add post</button>
+                        <button onClick={ onAddBPost }>add post</button>
                     </div>
                 </div>
                 <div className={classes.posts}>
                     { Post }
                 </div>
             </div>
-    
 }
 export default MyPosts;

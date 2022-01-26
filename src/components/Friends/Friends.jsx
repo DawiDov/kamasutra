@@ -1,13 +1,9 @@
 import React from "react";
 import classes from "./Friends.module.css";
-import { createUpdateNewNameText, createUpdateNewLinkText, createUpdateNewAvaText, createAddProperties, createRemoveProperties } from '../mobx/sidebar-reducer'
+import { createUpdateNewNameText, createUpdateNewLinkText, createUpdateNewAvaText, createAddProperties } from '../mobx/sidebar-reducer'
 
 
 const Friends = (props) => {
-
-    let newPropElementName = React.createRef();
-    let newPropElementLink = React.createRef();
-    let newPropElementAva = React.createRef();
 
     let addFriendListFriend = () => {
         props.dispatch(createAddProperties())
@@ -20,9 +16,8 @@ const Friends = (props) => {
                     <textarea
                         value={props.state.newNameText}
                         placeholder="Friend name"
-                        ref={ newPropElementName }
-                        onChange={ () => {
-                                let name = newPropElementName.current.value
+                        onChange={ (event) => {
+                                let name = event.target.value
                                 props.dispatch(createUpdateNewNameText(name))
                             }
                         }/>
@@ -31,9 +26,8 @@ const Friends = (props) => {
                     <textarea
                         value={props.state.newLinkText}
                         placeholder="Friend link - /listFriends/name"
-                        ref={ newPropElementLink }
-                        onChange={ () => {
-                            let link = newPropElementLink.current.value
+                        onChange={ (event) => {
+                            let link = event.target.value
                             props.dispatch(createUpdateNewLinkText(link))
                         }
                     }/>
@@ -42,9 +36,8 @@ const Friends = (props) => {
                     <textarea
                         value={props.state.newAvaText}
                         placeholder="Friend ava"
-                        ref={ newPropElementAva }
-                        onChange={ () => {
-                            let ava = newPropElementAva.current.value
+                        onChange={ (event) => {
+                            let ava = event.target.value
                             props.dispatch(createUpdateNewAvaText(ava))
                         }
                     }/>

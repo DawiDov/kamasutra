@@ -38,7 +38,8 @@ const dialogsReducer = (state = initialState, action) => {
             state.newMessageText = '';
             return state;
         case REMOVE_MESSAGE:
-            state.messageData.splice(action.message, 1);
+            let index = state.messageData.indexOf(action.message)
+            state.messageData.splice(index, 1);
             return state;
         default:
             return state;   

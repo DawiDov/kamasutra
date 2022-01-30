@@ -15,7 +15,7 @@ const Dialogs = (props) => {
     let messageItem = props.dialogs.messageData.map(mD => {
         return <div className={classes.message}>
                 <div key={mD.id} className={classes.message}>{mD.message}</div>
-                <div onClick={() => {onRemoveMessage(mD)}} className={classes.removeMessage}>
+                <div onClick={() => {onRemoveMessage(mD.id)}} className={classes.removeMessage}>
                     <img src="https://c0.klipartz.com/pngpicture/84/324/gratis-png-iconos-de-la-computadora-cruzan-eliminar-boton-escritorio-mapa-del-tesoro-thumbnail.png" alt="remove" />
                 </div>
             </div>
@@ -23,10 +23,10 @@ const Dialogs = (props) => {
     )
     let onMessageChange = (event) => {
         let message = event.target.value;
-        props.updateNewMessageText(message)
+        props.messageChange(message)
     };
-    let addMessage = () => {
-        props.onAddMessage()
+    let onAddMessage = () => {
+        props.addMessage()
     }
     return (
         <div className={classes.dialogs}>
@@ -43,7 +43,7 @@ const Dialogs = (props) => {
                             value={ props.dialogs.newMessageText }
                             placeholder="Сюда писать текст сообшения..." />
                             </div>
-                <div onClick={ addMessage }><button>Send</button></div>
+                <div onClick={ onAddMessage }><button>Send</button></div>
             </div>
         </div>    
         )

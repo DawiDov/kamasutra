@@ -1,3 +1,5 @@
+import {cloneDeep} from "lodash";
+import {indexOf} from "lodash";
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const REMOVE_POST = 'REMOVE-POST';
@@ -5,32 +7,38 @@ const REMOVE_POST = 'REMOVE-POST';
 const initialState = {
     newPostText: " ",
     posts: [
-        {name: 'Artur', like: 25, message: 'Привед Медвед'},
-        {name: 'Artur', like: 12, message: 'Врот мне ноги'},
-        {name: 'Artur', like: 2, message: 'Удаффф'},
-        {name: 'Artur', like: 10, message: 'УпячГа'},
-        {name: 'Artur', like: 13, message: 'Креведко'},
-        {name: 'Artur', like: 19, message: 'Кто тут папа?'},
+        {id: 1, name: 'Artur', like: 25, message: 'Привед Медвед'},
+        {id: 2, name: 'Artur', like: 12, message: 'Врот мне ноги'},
+        {id: 3, name: 'Artur', like: 2, message: 'Удаффф'},
+        {id: 4, name: 'Artur', like: 10, message: 'УпячГа'},
+        {id: 5, name: 'Artur', like: 13, message: 'Креведко'},
+        {id: 6, name: 'Artur', like: 19, message: 'Кто тут папа?'},
     ],
 }
 
 const profileReducer = (state = initialState, action) => {
     switch(action.type) {
         case ADD_POST:
-            let stateItem = {
-                name: 'Artur' , like: '25', message: state.newPostText } 
-            state.posts.unshift(stateItem)
-            state.newPostText = '';
-            return state;
+            return {
+                ...state,
+                posts: [ , ...state.posts],
+                newPostText: '',
+            }
         case UPDATE_NEW_POST_TEXT:
-            state.newPostText = action.text;
-            return state;
+            return {
+                ...state,
+                newPostText: action.text
+            }
         case REMOVE_POST:
-            let index = state.posts.indexOf(action.post)
-            state.posts.splice(index, 1)
-            return state;
+            let deepState = {
+                ...state,
+                posts: [...state.posts]
+            }
+            let index = indexOf(state.posts, action.post) //сравниваем со старым стейтом иначе не найдет индекс
+            deepState.posts.splice(index, 1)
+            return deepState;
         default:
-            return state;
+            return cloneDeep(state)
     }
 }
 

@@ -4,20 +4,20 @@ import classes from "./MyPosts.module.css";
 const MyPosts = (props) => {
 
     let remove = (post) => {
-        props.onRemovePost(post)
+        props.remove(post)
     }
-    let Post = props.profilePosts.posts.map(p => {
+    let Post = props.profile.posts.map(p => {
         return <div className={classes.item}>
                 <div className={classes.avatar}>
-                    <img src="https://www.hollywoodreporter.com/wp-content/uploads/2019/03/avatar-publicity_still-h_2019.jpg?w=1024" alt="ava" />
+                    <img src="https://clck.ru/ap9Bs" alt="ava" />
                 </div>
                 <span>{`${p.name}: `}</span>
                 <span>{p.message}</span>
                 <div className={classes.like}>
-                    <img src="https://freeiconshop.com/wp-content/uploads/edd/like-outline.png" alt="like" />
+                    <img src="https://clck.ru/ap9Ck" alt="like" />
                     <span>{p.like}</span>
-                    <div onClick={ () => {remove(p)}}  className={classes.buttonRemove}>
-                        <img src="https://c0.klipartz.com/pngpicture/84/324/gratis-png-iconos-de-la-computadora-cruzan-eliminar-boton-escritorio-mapa-del-tesoro-thumbnail.png" alt="remove" />
+                    <div onClick={ () => {remove(p.id)}}  className={classes.buttonRemove}>
+                        <img src="https://clck.ru/ap9CE" alt="remove" />
                     </div>
                 </div>
         </div>
@@ -28,7 +28,7 @@ const MyPosts = (props) => {
     }
     let onPostChange = (event) => {
         let text = event.target.value;
-        props.updateNewPostText(text)
+        props.onPostChange(text)
     }
     return <div className={classes.myPosts}>
                 <div>
@@ -36,7 +36,7 @@ const MyPosts = (props) => {
                     <div className={classes.styletextarrea}>
                         <textarea 
                             onChange={ onPostChange }
-                            value={props.profilePosts.newPostText}
+                            value={props.profile.newPostText}
                             placeholder="Сюда писать текст поста..." />
                     </div>
                     <div className={classes.addPostButton}>

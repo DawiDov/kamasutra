@@ -3,7 +3,7 @@ import classes from "./Profile.module.css";
 import MyPostsContainer from "./ MyPosts/MyPostsContainer";
 
 
-const Profile = (props) => {
+const Profile = () => {
     return <div className={classes.content}>
     <div className={classes.image}>
         <img src='http://dgdesign.ru/uploads/posts/2018-11/1543390519_shapka-sayta-priroda-1622317.jpg' />
@@ -14,7 +14,7 @@ const Profile = (props) => {
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus atque obcaecati voluptatum optio temporibus 
             officia odit sit! Sint, excepturi? Aliquam harum sit amet officiis culpa praesentium totam fugiat sapiente expedita?</p>
     </div>
-        <MyPostsContainer state={props.state} dispatch={ props.dispatch }/>
+        <MyPostsContainer/>
     </div>
     }
 export default Profile;

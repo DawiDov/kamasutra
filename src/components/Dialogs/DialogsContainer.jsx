@@ -1,21 +1,30 @@
 import React from "react";
 import { createUpdateNewMessageText, createAddMessage, createRemoveMessage } from '../mobx/dialogs-reducer'
 import Dialogs from "./Dialogs";
+import {connect} from "react-redux";
 
-const DialogsContainer = (props) => {
-    let removeMessage = (mD) => {
-        props.dispatch(createRemoveMessage(mD))
-    };
-    let onMessageChange = (message) => {
-        props.dispatch(createUpdateNewMessageText(message))
-    };
-    let addMessage = () => {
-        props.dispatch(createAddMessage())
+
+
+
+let mapStateToProps = (state) => {
+    return {
+        dialogs: state.dialogs
     }
-    return <Dialogs dialogs={ props.state }
-                    removeMessage={ removeMessage }
-                    updateNewMessageText={ onMessageChange }
-                    onAddMessage={ addMessage }
-                />
 }
+
+let mapDispatchToProps = (dispatch) => {
+    return {
+        removeMessage: (id) => {
+            dispatch(createRemoveMessage(id))
+        },
+        messageChange: (message) => {
+            dispatch(createUpdateNewMessageText(message))
+        },
+        addMessage: () => {
+            dispatch(createAddMessage())
+        },
+    }
+}
+
+const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
 export default DialogsContainer;

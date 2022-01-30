@@ -1,3 +1,5 @@
+import {cloneDeep} from "lodash";
+
 const UPDATE_NEW_NAME_TEXT = 'UPDATE-NEW-NAME-TEXT'
 const UPDATE_NEW_LINK_TEXT = 'UPDATE-NEW-LINK-TEXT'
 const UPDATE_NEW_AVA_TEXT = 'UPDATE-NEW-AVA-TEXT'
@@ -5,16 +7,8 @@ const ADD_PROPERTIES = 'ADD-MESSAGE';
 const REMOVE_PROPERTIES = 'REMOVE-MESSAGE';
 
 const initialState = {
-        newNameText: '',
-        newLinkText: '',
-        newAvaText: '',
         friends: [
-            {name: 'Алла', link:'/listFriends/alla' ,ava: 'https://avatars.mds.yandex.net/get-kino-vod-films-gallery/28788/47e2fd514411e18b76af786d7417062d/100x64_3'},
-            {name: 'Петька', link:'/listFriends/petya' ,ava: 'https://static.1tv.ru/uploads/photo/image/2/huge/4062_huge_876c41f50e.jpg'},
-            {name: 'Вазген', link:'/listFriends/vazgen' ,ava: 'https://static.1tv.ru/uploads/photo/image/2/huge/4062_huge_876c41f50e.jpg'},
-            {name: 'Таня', link:'/listFriends/tanya' ,ava: 'https://avatars.mds.yandex.net/get-kino-vod-films-gallery/28788/47e2fd514411e18b76af786d7417062d/100x64_3'},
-            {name: 'Паха', link:'/listFriends/paha' ,ava: 'https://static.1tv.ru/uploads/photo/image/2/huge/4062_huge_876c41f50e.jpg'},
-            {name: 'Инга', link:'/listFriends/inga' ,ava: 'https://avatars.mds.yandex.net/get-kino-vod-films-gallery/28788/47e2fd514411e18b76af786d7417062d/100x64_3'},
+            {id: 1, name: 'Алла', link:'/listFriends/alla' ,ava: 'https://clck.ru/aptAu'},
         ],
 
 }
@@ -22,32 +16,41 @@ const initialState = {
 const sidebarReducer = (state = initialState, action) => {
     switch(action.type) {
         case UPDATE_NEW_NAME_TEXT:
-            state.newNameText = action.name;
-            return state;
+            return {
+                ...state,
+                newNameText: action.name,
+            }
         case UPDATE_NEW_LINK_TEXT:
-            state.newLinkText = action.link;
-            return state;
+            return {
+                ...state,
+                newLinkText: action.link,
+            }
         case UPDATE_NEW_AVA_TEXT:
-            state.newAvaText = action.ava;
-            return state;
+            return {
+                ...state,
+                newAvaText: action.ava,
+            }
         case ADD_PROPERTIES:
-            let messageItem = {
-                name: state.newNameText,
-                link: state.newLinkText,
-                ava: state.newAvaText,
-            };
-            messageItem.name && messageItem.link &&
-            messageItem.ava && state.friends.unshift(messageItem);
-
-            state.newNameText = '';
-            state.newLinkText = '';
-            state.newAvaText = '';
-            return state;
+            return {
+                ...state,
+                friends: [{
+                    name: state.newNameText,
+                    link: state.newLinkText,
+                    ava: state.newAvaText,
+                }, ...state.friends],
+                newNameText: '',
+                newLinkText: '',
+                newAvaText: '',
+            }
         case REMOVE_PROPERTIES:
-            state.friends.splice(action.properties, 1);
-            return state;
+            let deepState = {
+                ...state,
+                friends: [...state.friends]
+            }
+            // deepState.friends.splice(action.properties, 1);
+            return deepState;
         default:
-            return state;
+            return cloneDeep(state)
     }
 }
 

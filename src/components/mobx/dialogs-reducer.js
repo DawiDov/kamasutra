@@ -1,3 +1,5 @@
+import {cloneDeep} from "lodash";
+
 const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT'
 const ADD_MESSAGE = 'ADD-MESSAGE';
 const REMOVE_MESSAGE = 'REMOVE-MESSAGE';
@@ -23,26 +25,41 @@ const initialState = {
 }
 
 const dialogsReducer = (state = initialState, action) => {
+    let deepState = {}
     switch(action.type) {
         case UPDATE_NEW_MESSAGE_TEXT:
-            state.newMessageText = action.text;
-            return state;
+            return {
+                ...state,
+                newMessageText: action.text
+            }
         case ADD_MESSAGE:
             //наверно нужен рефакторинг
-            let arrLength = state.messageData.length
+            deepState = {
+                ...state,
+                messageData: [...state.messageData]
+            }
+            let arrLength = deepState.messageData.length
             let id = 0;
             if (arrLength == 0) id=1; 
             else id = ++arrLength; //increment last index
-            let messageItem = {id: id, message: state.newMessageText};
-            state.messageData.unshift(messageItem)       
-            state.newMessageText = '';
-            return state;
+            let messageItem = {id: id, message: deepState.newMessageText};
+            deepState.messageData.unshift(messageItem)
+            deepState.newMessageText = '';
+            return deepState;
         case REMOVE_MESSAGE:
-            let index = state.messageData.indexOf(action.message)
-            state.messageData.splice(index, 1);
-            return state;
+            return {
+                ...state,
+                messageData: state.messageData.map(mS => {
+                    if (mS.id === action.messageId) {
+                        let idx = state.messageData.indexOf(mS)
+                        state.messageData.splice(idx, 1);
+                        return [...state.messageData]
+                        }
+                    return mS;
+                })
+            }
         default:
-            return state;   
+            return cloneDeep(state)
     }
 }
 
@@ -52,8 +69,8 @@ export let createUpdateNewMessageText = (text) => {
 export let createAddMessage = () => {
 return { type: ADD_MESSAGE }
     };
-export let createRemoveMessage = (message) => {
-return { type: REMOVE_MESSAGE, message: message }
+export let createRemoveMessage = (id) => {
+return { type: REMOVE_MESSAGE, messageId: id }
     };
 
 export default dialogsReducer;

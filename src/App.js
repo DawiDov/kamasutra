@@ -9,25 +9,27 @@ import Profile from './components/Profile/Profile';
 import News from './components/News/News';
 import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
-import Sidebar from './components/Sidebar/Sidebar';
-import Friends from "./components/Friends/Friends";
+import SideItemContainer from './components/Sidebar/SideItemContainer';
+import MyPostsContainer from "./components/Friends/FriendsContainer";
+import UsersContainer from "./components/Users/UsersContainer";
 
 
 const App = (props) => {
     return (
         <div className='app'>
-                    <Header />
+                    <Header/>
                 <div className='app-wrapper'>
-                    <Sidebar state={props.state.friends}/>
+                    <SideItemContainer/>
                     <Nav/>
                     <div className='app-wrapper-content'>
                         <Routes>
                             <Route path="/profile"
-                                   element={<Profile state={ props.state.profile } dispatch={ props.dispatch }/>} />
+                                   element={ <Profile/> }/>
                             <Route path="/dialogs"
-                                   element={<DialogsContainer state={ props.state.dialogs } dispatch={ props.dispatch }/>} />
+                                   element={ <DialogsContainer/> }/>
                             <Route path="/friends"
-                                   element={<Friends state={ props.state.friends } dispatch={ props.dispatch }/>}/>
+                                   element={ <MyPostsContainer/> }/>
+                            <Route path="/users" element={<UsersContainer/>}/>
                             <Route path="/news" element={<News/>}/>
                             <Route path="/music" element={<Music/>}/>
                             <Route path="/settings" element={<Settings/>}/>
@@ -39,3 +41,4 @@ const App = (props) => {
     }
 
 export default App;
+

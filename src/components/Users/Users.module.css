@@ -1,0 +1,55 @@
+.wrapper {
+    /*border: #700E2D dashed 2px;*/
+    height: 800px;
+    padding: 10px;
+}
+.userWrapper {
+    background-color: #700E2D;
+    border-radius: 20px;
+    display: flex;
+    padding: 5px;
+    margin: 10px 0 10px 0;
+    border: white solid 1px;
+    height: 120px;
+}
+.avaButWrapper {
+    margin: 0 5px 0 0;
+}
+.ava img {
+    border: white solid 1px;
+    border-radius: 10px;
+    margin: 5px 5px 5px 15px;
+    width: 90px;
+    height: 70px;
+}
+.button button {
+    border: white solid 1px;
+    border-radius: 20px;
+    margin: 0px 0px 0px 15px;
+    width: 90px;
+    height: 30px;
+}
+.infoWrapper {
+    display: flex;
+    background-color: #C6A9A4;
+    border-radius: 20px;
+    margin: 6px 10px 10px 10px ;
+    border: white solid 1px;
+    height: 104px;
+    width: 750px;
+}
+.name {
+    max-width: 300px;
+    margin: 12px 0px 0px 15px;
+}
+.status {
+    max-width: 300px;
+    margin: 45px 0 0 15px;
+}
+.city {
+    margin: 12px 0 0 450px;
+}
+
+.country {
+    margin: 20px 0 0 450px;
+}

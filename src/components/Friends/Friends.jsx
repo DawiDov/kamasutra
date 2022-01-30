@@ -1,44 +1,40 @@
 import React from "react";
 import classes from "./Friends.module.css";
-import { createUpdateNewNameText, createUpdateNewLinkText, createUpdateNewAvaText, createAddProperties } from '../mobx/sidebar-reducer'
 
 
 const Friends = (props) => {
-
     let addFriendListFriend = () => {
-        props.dispatch(createAddProperties())
+        props.addProperties()
     }
-
-
     return <div className={classes.friendsWrapper}>
             <div className={classes.enterField}>
                 <div className={classes.enterFieldItem}>
                     <textarea
-                        value={props.state.newNameText}
+                        value={props.friends.newNameText}
                         placeholder="Friend name"
                         onChange={ (event) => {
                                 let name = event.target.value
-                                props.dispatch(createUpdateNewNameText(name))
+                                props.onChangeNameField(name)
                             }
                         }/>
                 </div>
                 <div className={classes.enterFieldItem}>
                     <textarea
-                        value={props.state.newLinkText}
+                        value={props.friends.newLinkText}
                         placeholder="Friend link - /listFriends/name"
                         onChange={ (event) => {
                             let link = event.target.value
-                            props.dispatch(createUpdateNewLinkText(link))
+                            props.onChangeLinkField(link)
                         }
                     }/>
                 </div>
                 <div className={classes.enterFieldItem}>
                     <textarea
-                        value={props.state.newAvaText}
+                        value={props.friends.newAvaText}
                         placeholder="Friend ava"
                         onChange={ (event) => {
                             let ava = event.target.value
-                            props.dispatch(createUpdateNewAvaText(ava))
+                            props.onChangeAvaField(ava)
                         }
                     }/>
                 </div>

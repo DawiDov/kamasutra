@@ -53,3 +53,16 @@
 .country {
     margin: 20px 0 0 450px;
 }
+
+.selectedPage {
+    font-weight: 700;
+}
+
+.pagination span{
+    font-size: 20px;
+    cursor: pointer;
+    margin: 0 3px 0 3px;
+}
+.nextPages {
+    color: blue;
+}

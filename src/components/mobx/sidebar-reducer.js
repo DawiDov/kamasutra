@@ -1,76 +1,50 @@
-import {cloneDeep} from "lodash";
-
-const UPDATE_NEW_NAME_TEXT = 'UPDATE-NEW-NAME-TEXT'
-const UPDATE_NEW_LINK_TEXT = 'UPDATE-NEW-LINK-TEXT'
-const UPDATE_NEW_AVA_TEXT = 'UPDATE-NEW-AVA-TEXT'
-const ADD_PROPERTIES = 'ADD-MESSAGE';
-const REMOVE_PROPERTIES = 'REMOVE-MESSAGE';
+const SET_FRIENDS_IN_STATE = "SET-FRIENDS-IN-STATE";
+const REMOVE_FROM_FRIEND_LIST = "REMOVE-FROM-FRIEND-LIST";
+const ADD_TO_FRIEND_LIST = "ADDTO-FRIEND-LIST";
 
 const initialState = {
-        friends: [
-            {id: 1, name: 'Алла', link:'/listFriends/alla' ,ava: 'https://clck.ru/aptAu'},
-        ],
-
-}
+  friends: [
+    {
+      name: "vademar23",
+      id: 22308,
+      uniqueUrlName: null,
+      photos: {
+        small: null,
+        large: null,
+      },
+      status: null,
+      followed: true,
+    },
+  ],
+};
 
 const sidebarReducer = (state = initialState, action) => {
-    switch(action.type) {
-        case UPDATE_NEW_NAME_TEXT:
-            return {
-                ...state,
-                newNameText: action.name,
-            }
-        case UPDATE_NEW_LINK_TEXT:
-            return {
-                ...state,
-                newLinkText: action.link,
-            }
-        case UPDATE_NEW_AVA_TEXT:
-            return {
-                ...state,
-                newAvaText: action.ava,
-            }
-        case ADD_PROPERTIES:
-            return {
-                ...state,
-                friends: [{
-                    name: state.newNameText,
-                    link: state.newLinkText,
-                    ava: state.newAvaText,
-                }, ...state.friends],
-                newNameText: '',
-                newLinkText: '',
-                newAvaText: '',
-            }
-        case REMOVE_PROPERTIES:
-            let deepState = {
-                ...state,
-                friends: [...state.friends]
-            }
-            // deepState.friends.splice(action.properties, 1);
-            return deepState;
-        default:
-            return cloneDeep(state)
-    }
-}
+  switch (action.type) {
+    case SET_FRIENDS_IN_STATE:
+      return {
+        ...state,
+        friends: action.friends,
+      };
+    default:
+      return state;
 
-export let createUpdateNewNameText = (text) => {
-    return { type: UPDATE_NEW_NAME_TEXT, name: text
-    }
+    case REMOVE_FROM_FRIEND_LIST:
+      return {
+        ...state,
+        friends: state.friends.map((u) => {
+          if (u.id === action.friendId) {
+            return { ...u, followed: false };
+          }
+          return u;
+        }),
+      };
+  }
 };
-export let createUpdateNewLinkText = (text) => {
-    return { type: UPDATE_NEW_LINK_TEXT, link: text
-    }
+export let setFriendsInStateAC = (items) => {
+  return { type: SET_FRIENDS_IN_STATE, friends: items };
 };
-export let createUpdateNewAvaText = (text) => {
-    return { type: UPDATE_NEW_AVA_TEXT, ava: text
-    }
-};
-export let createAddProperties = () => {
-    return { type: ADD_PROPERTIES }
-};
-export let createRemoveProperties = (message) => {
-    return { type: REMOVE_PROPERTIES, properties: message }
+export let setRemoveFromFriendListAC = (friendId) => {
+  return { type: REMOVE_FROM_FRIEND_LIST, friendId };
 };
 
 export default sidebarReducer;

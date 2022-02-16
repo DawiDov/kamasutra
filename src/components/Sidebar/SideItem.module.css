@@ -1,23 +1,46 @@
 .friendWrapper {
-    width: 100px;
-    height: 100px;
-    padding: 5px 0 0 0;
-    margin: 0 auto;
+  width: 100px;
+  height: 100px;
+  padding: 5px 0 0 0;
+  margin: 0 auto;
 }
 
 .friendAva img {
-    display: block;
-    padding: 3px;
-    margin-left: auto;
-    margin-right: auto;
-    border: 1px solid black;
-    margin: 0 auto;
-    width: 80px;
-    height: 80px;
-    border-radius: 25px;
+  display: block;
+  padding: 3px;
+  margin-left: auto;
+  margin-right: auto;
+  margin: 0 auto;
+  width: 80px;
+  height: 80px;
+  border-radius: 25px;
 }
 
 .friendName {
-    text-align: center;
-    margin: 5px 0 5px 0;
+  text-align: center;
+  margin: 5px 0 5px 0;
+}
+
+.nameRemoveWrap {
+  display: flex;
+}
+.friendAva {
+  position: relative;
+}
+
+.removeLink img {
+  position: absolute;
+  bottom: 5px;
+  right: 8px;
+  border-radius: 30px;
+  margin: 5px 0 0 5px;
+  display: inline;
+  width: 20px;
+  height: 20px;
+}
+
+.removeLink img:active {
+  width: 25px;
+  height: 25px;
+  box-shadow: 0 0 10px black;
 }

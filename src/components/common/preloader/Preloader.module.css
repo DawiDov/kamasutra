@@ -1,9 +1,12 @@
-.loader img{
-    margin: 10px;
-    width: 50px;
-    height: 50px;
+.loader img {
+  margin: 10px;
+  width: 150px;
+  height: 150px;
 }
 .loader {
-    display: flex;
-    justify-content: center;
+  top: 150px;
+  left: 390px;
+  position: absolute;
+  display: flex;
+  justify-content: center;
 }

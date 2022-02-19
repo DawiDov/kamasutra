@@ -2,70 +2,26 @@ import React from "react";
 import { connect } from "react-redux";
 import Users from "./Users";
 import {
-  setFriendsInStateAC,
-  setRemoveFromFriendListAC,
-} from "../mobx/sidebar-reducer";
-import {
-  CAFollowed,
-  CASetCurrentPage,
-  CASetUsers,
-  CAUnfollowed,
-  CASetTotalUsersCount,
-  CASetIsFetchingCount,
-  CAToggleIsFollowingInProgres,
-} from "../mobx/users-reducer";
-import {
   getUsers,
-  getFollower,
-  removeFollower,
-  getFriends,
-} from "../../api/api";
-
-export const getUserForAddFriendList = (user) => {
-  return user;
-};
+  flipping,
+  subToUser,
+  unfollowUser,
+} from "../mobx/users-reducer";
 
 class UsersContainer extends React.Component {
   componentDidMount() {
-    this.props.setIsFetchingCount(true);
-    getUsers(this.props.currentPage, this.props.pageSize).then((response) => {
-      this.props.setIsFetchingCount(false);
-      this.props.setUsers(response.items);
-      this.props.setTotalUsersCount(response.totalCount);
-    });
+    this.props.getUsers(this.props.currentPage, this.props.pageSize);
   }
-
   onPageChanged = (pageNumber) => {
-    this.props.setIsFetchingCount(true);
-    this.props.setCurrentPage(pageNumber);
-    getUsers(pageNumber, this.props.pageSize).then((response) => {
-      this.props.setIsFetchingCount(false);
-      this.props.setUsers(response.items);
-    });
+    this.props.flipping(pageNumber, this.props.pageSize);
   };
 
   follow = (userId) => {
-    this.props.onfollowingInProgres(userId, true);
-    getFollower(userId).then((response) => {
-      if (response.resultCode === 0) {
-        this.props.addAsFriends(userId);
-        this.props.onfollowingInProgres(userId, false);
-      }
-    });
-    getFriends().then((response) => {
-      this.props.setFriends(response.items);
-    });
+    this.props.subToUser(userId);
   };
 
   unFollow = (userId) => {
-    this.props.onfollowingInProgres(userId, true);
-    removeFollower(userId).then((response) => {
-      if (response.resultCode === 0) {
-        this.props.removeFromFriends(userId);
-        this.props.removeFromFriendList(userId);
-        this.props.onfollowingInProgres(userId, false);
-      }
-    });
+    this.props.unfollowUser(userId);
   };
 
   render() {
@@ -95,37 +51,9 @@ let mapStateToProps = (state) => {
     followingInProgres: state.usersData.followingInProgres,
   };
 };
-
-let mapDispatchToProps = (dispatch) => {
-  return {
-    addAsFriends: (userId) => {
-      dispatch(CAFollowed(userId));
-    },
-    removeFromFriends: (userId) => {
-      dispatch(CAUnfollowed(userId));
-    },
-    setUsers: (users) => {
-      dispatch(CASetUsers(users));
-    },
-    setCurrentPage: (page) => {
-      dispatch(CASetCurrentPage(page));
-    },
-    setTotalUsersCount: (totalCount) => {
-      dispatch(CASetTotalUsersCount(totalCount));
-    },
-    setIsFetchingCount: (isFetching) => {
-      dispatch(CASetIsFetchingCount(isFetching));
-    },
-    onfollowingInProgres: (userId, isFetching) => {
-      dispatch(CAToggleIsFollowingInProgres(userId, isFetching));
-    },
-    setFriends: (users) => {
-      dispatch(setFriendsInStateAC(users));
-    },
-    removeFromFriendList: (userId) => {
-      dispatch(setRemoveFromFriendListAC(userId));
-    },
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer);
+export default connect(mapStateToProps, {
+  getUsers,
+  flipping,
+  subToUser,
+  unfollowUser,
+})(UsersContainer);

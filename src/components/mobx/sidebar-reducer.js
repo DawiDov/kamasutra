@@ -1,6 +1,5 @@
 const SET_FRIENDS_IN_STATE = "SET-FRIENDS-IN-STATE";
 const REMOVE_FROM_FRIEND_LIST = "REMOVE-FROM-FRIEND-LIST";
-const ADD_TO_FRIEND_LIST = "ADDTO-FRIEND-LIST";
 
 const initialState = {
   friends: [

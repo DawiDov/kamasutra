@@ -1,3 +1,15 @@
+import {
+  getUsersFromServer,
+  getFollowerFromServer,
+  removeFollowerFromServer,
+  getFriendsFromServer,
+} from "../../api/api";
+
+import {
+  setFriendsInStateAC,
+  setRemoveFromFriendListAC,
+} from "./sidebar-reducer";
+
 const FOLLOWED = "FOLLOWED";
 const UNFOLLOWED = "UNFOLLOWED";
 const SET_USERS = "SET-USERS";
@@ -86,6 +98,56 @@ export let CASetIsFetchingCount = (isFetching) => {
 };
 export let CAToggleIsFollowingInProgres = (userId, isFetching) => {
   return { type: TOGGLE_IS_FOLLOWING_IN_PROGRES, userId, isFetching };
+};
+
+export const getUsers = (currentPage, pageSize) => {
+  return (dispatch) => {
+    dispatch(CASetIsFetchingCount(true));
+    getUsersFromServer(currentPage, pageSize).then((response) => {
+      dispatch(CASetIsFetchingCount(false));
+      dispatch(CASetUsers(response.items));
+      dispatch(CASetTotalUsersCount(response.totalCount));
+    });
+  };
+};
+
+export const flipping = (pageNumber, pageSize) => {
+  return (dispatch) => {
+    dispatch(CASetIsFetchingCount(true));
+    dispatch(CASetCurrentPage(pageNumber));
+    getUsersFromServer(pageNumber, pageSize).then((response) => {
+      dispatch(CASetIsFetchingCount(false));
+      dispatch(CASetUsers(response.items));
+    });
+  };
+};
+
+export const subToUser = (userId) => {
+  return (dispatch) => {
+    dispatch(CAToggleIsFollowingInProgres(userId, true));
+    getFollowerFromServer(userId).then((response) => {
+      if (response.resultCode === 0) {
+        dispatch(CAFollowed(userId));
+        dispatch(CAToggleIsFollowingInProgres(userId, false));
+      }
+    });
+    getFriendsFromServer().then((response) => {
+      dispatch(setFriendsInStateAC(response.items));
+    });
+  };
+};
+
+export const unfollowUser = (userId) => {
+  return (dispatch) => {
+    dispatch(CAToggleIsFollowingInProgres(userId, true));
+    removeFollowerFromServer(userId).then((response) => {
+      if (response.resultCode === 0) {
+        dispatch(CAUnfollowed(userId));
+        dispatch(setRemoveFromFriendListAC(userId));
+        dispatch(CAToggleIsFollowingInProgres(userId, false));
+      }
+    });
+  };
 };
 
 export default usersReducer;

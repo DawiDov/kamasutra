@@ -5,17 +5,17 @@ import {
   setFriendsInStateAC,
   setRemoveFromFriendListAC,
 } from "../mobx/sidebar-reducer";
-import { getFriends, removeFollower } from "../../api/api";
+import { getFriendsFromServer, removeFollowerFromServer } from "../../api/api";
 
 class SideItemContainer extends React.Component {
   componentDidMount() {
-    getFriends().then((response) => {
+    getFriendsFromServer().then((response) => {
       this.props.setFriends(response.items);
     });
   }
 
   unFollow = (userId) => {
-    removeFollower(userId).then((response) => {
+    removeFollowerFromServer(userId).then((response) => {
       if (response.resultCode === 0) {
         this.props.removeFromFriends(userId);
       }

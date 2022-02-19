@@ -8,7 +8,7 @@ const instance = axios.create({
   },
 });
 
-export const getUsers = (page, pageSize) => {
+export const getUsersFromServer = (page, pageSize) => {
   return instance
     .get(`users?page=${page}&count=${pageSize}`)
     .then((response) => {
@@ -16,25 +16,25 @@ export const getUsers = (page, pageSize) => {
     });
 };
 
-export const getUser = (userId) => {
+export const getUserFromServer = (userId) => {
   return instance.get(`profile/${userId}`).then((response) => {
     return response.data;
   });
 };
 
-export const getFriends = () => {
-  return instance.get("users?friend=true").then((response) => {
+export const getFriendsFromServer = () => {
+  return instance.get("users?friend=true&count=16").then((response) => {
     return response.data;
   });
 };
 
-export const getFollower = (userId) => {
+export const getFollowerFromServer = (userId) => {
   return instance.post(`follow/${userId}`).then((response) => {
     return response.data;
   });
 };
 
-export const removeFollower = (userId) => {
+export const removeFollowerFromServer = (userId) => {
   return instance.delete(`follow/${userId}`).then((response) => {
     return response.data;
   });

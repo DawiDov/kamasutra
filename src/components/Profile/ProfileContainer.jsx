@@ -3,13 +3,13 @@ import React from "react";
 import { connect } from "react-redux";
 import { setUserProfile } from "../mobx/profile-reducer";
 import { withRouter } from "react-router-dom";
-import { getUser } from "../../api/api";
+import { getUserFromServer } from "../../api/api";
 
 class ProfileContainer extends React.Component {
   componentDidMount() {
     let userId = this.props.match.params.userid;
     if (!userId) userId = 2;
-    getUser(userId).then((response) => {
+    getUserFromServer(userId).then((response) => {
       this.props.setUserProfile(response);
     });
   }
